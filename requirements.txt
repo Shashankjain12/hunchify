@@ -10,5 +10,6 @@ pickle
 prefect==2.16.2
 seaborn
 surprise
+scikit-learn
 python-box
 aiohttp
