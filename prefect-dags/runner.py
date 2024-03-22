@@ -2,10 +2,6 @@ from prefect import flow, task, get_run_logger
 from events_clean import clean_events
 from raw_events_to_interactions import raw_events_to_interactions
 
-@task(retries=2)
-def get_repo_info(repo_owner: str, repo_name: str):
-    pass
-
 
 @task
 def events_cleaner():
@@ -21,7 +17,7 @@ def raw_events_to_interactions():
     """
     Cleans the data
     """
-    print("Events cleaning started")
+    print("Raw events to interactions")
     interactions, users, polls = raw_events_to_interactions()
     return interactions, users, polls
 
@@ -52,6 +48,7 @@ def run(repo_owner: str = "PrefectHQ", repo_name: str = "prefect"):
     """
     print("Time to start event cleaning")
     cleaned_data = events_cleaner()
+    print("Function 2 := Raw events to interactions")
     cleaned_data = raw_events_to_interactions(cleaned_data)
     # cleaned_data = events_cleaner()
     # cleaned_data = events_cleaner()

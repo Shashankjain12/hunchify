@@ -24,10 +24,9 @@ pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
 
-pandarallel.initialize()
 
 def raw_events_to_interactions():
-
+    pandarallel.initialize()
     data_path = os.path.join("data", "prepared")
     file_name = "events.pkl"
     file_path = os.path.join(data_path, file_name)
