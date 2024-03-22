@@ -8,4 +8,9 @@ Python Ver 3.10.0
 > cd prefect-dags/
 > pip install -r requirements.txt
 > python create_deployment.py
-> 
+
+# Prefect Server
+![alt text](images/image.png)
+
+# Prefect Server Deployment Running
+![alt text](images/image-1.png)
