@@ -1,23 +1,18 @@
 from prefect import flow, task
-from events_clean import 
+from events_clean import clean_events
 
 @task(retries=2)
 def get_repo_info(repo_owner: str, repo_name: str):
-    """Get info about a repo - will retry twice after failing"""
-    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
-    api_response = httpx.get(url)
-    api_response.raise_for_status()
-    repo_info = api_response.json()
-    return repo_info
+    pass
 
 
 @task
-def events_cleaner(repo_info: dict):
+def events_cleaner():
     """
     Cleans the data
     """
-
-    return contributors
+    clean_df = clean_events()
+    return clean_df
 
 
 @flow(log_prints=True)
