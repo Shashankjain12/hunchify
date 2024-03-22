@@ -9,7 +9,7 @@ import yaml
 # Load environment-specific configurations
 environment = os.environ.get("ENVIRONMENT", "local")  # Default to local environment if not specified
 
-with open(f"configs/{environment}.yaml", "r") as file:
+with open(f"prefect-dags/configs/{environment}.yaml", "r") as file:
     config = yaml.safe_load(file)
 
 # Access environment-specific settings
