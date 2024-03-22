@@ -11,3 +11,4 @@ prefect==2.16.2
 seaborn
 surprise
 python-box
+aiohttp
