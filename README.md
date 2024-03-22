@@ -14,3 +14,9 @@ Python Ver 3.10.0
 
 # Prefect Server Deployment Running
 ![alt text](images/image-1.png)
+
+# Prefect completed deployment along with model training
+![alt text](images/image-completed.png)
+
+# Display and Respective loggers
+![alt text](images/image-logs.png)
