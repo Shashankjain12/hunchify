@@ -1,4 +1,4 @@
-from prefect import flow, task
+from prefect import flow, task, get_run_logger
 from events_clean import clean_events
 
 @task(retries=2)
@@ -11,6 +11,7 @@ def events_cleaner():
     """
     Cleans the data
     """
+    print("Events cleaning started")
     clean_df = clean_events()
     return clean_df
 
@@ -30,6 +31,7 @@ def run(repo_owner: str = "PrefectHQ", repo_name: str = "prefect"):
     ● mlops/prepare_for_model.py does some more cleaning for modeling purpose and
     dumps the following files:
     """
+    print("Time to start event cleaning")
     cleaned_data = events_cleaner()
     
 

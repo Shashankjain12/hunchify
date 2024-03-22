@@ -7,5 +7,5 @@ if __name__ == "__main__":
     ).deploy(
         name="hunch-deployment",
         work_pool_name="my-managed-pool",
-        cron="0 1 * * *",
+        cron="5 * * * *",
     )
