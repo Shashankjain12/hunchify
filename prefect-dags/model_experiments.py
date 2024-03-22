@@ -295,7 +295,6 @@ def model_exp():
             .copy()
             .to_list()
         )
-
         df_recommended = test_users[["user_code"]].copy()
 
         rows_before = df_recommended.shape[0]
@@ -310,15 +309,13 @@ def model_exp():
         for n in [10, 25, 50]:
             model_name = f"Baseline: Top {n} polls by " + popularity_metric
             df_recommended["recommended_polls"] = [recommended_polls] * df_recommended.shape[0]
-            df_recommended["recommended_polls_filtered"] = df_recommended.parallel_apply(
+            df_recommended["recommended_polls_filtered"] = df_recommended.apply(
                 lambda x: x["recommended_polls"][0:n],
                 axis=1,
             ) 
-
             recommendation_dict = df_recommended.set_index("user_code")[
                 "recommended_polls_filtered"
             ].to_dict()
-
             (
                 ndcg_by_user,
                 precision_by_user,
@@ -338,16 +335,12 @@ def model_exp():
             )
     with pd.option_context("display.float_format", "{:,.2%}".format):
         display(model_results_comparison)
-
     rating_min = train_data["event_score"].min()
     rating_max = train_data["event_score"].max()
     print(f"Min rating: {rating_min}, Max rating: {rating_max}")
     req_cols = ["user_code", "poll_code", "event_score"]
-
     reader = Reader(rating_scale=(rating_min, rating_max))
     train_data_surprise = Dataset.load_from_df(train_data[req_cols], reader).build_full_trainset()
-
-
     algo = SVD(n_factors=10, n_epochs=40, lr_all=0.005, reg_all=0.1)
     algo.fit(train_data_surprise)
     for is_filter_train_polls_out in [False, True]:

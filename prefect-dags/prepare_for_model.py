@@ -23,9 +23,7 @@ def model_prep():
             file_path,
         )
     assert users.shape[0] == users["user_code"].nunique()    
-    display(users.head())   
-
-
+    display(users.head())
     file_name = "polls.pkl"
     file_path = os.path.join(data_path, file_name)
     polls: pd.DataFrame = None 
