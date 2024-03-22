@@ -20,11 +20,6 @@ from utils.utils import get_polls_data_from_interaction_data, get_users_data_fro
 from IPython.display import display
 
 
-pd.set_option("display.max_rows", None)
-pd.set_option("display.max_columns", None)
-
-
-
 def raw_events_to_interactions():
     pandarallel.initialize()
     data_path = os.path.join("data", "prepared")
@@ -38,7 +33,7 @@ def raw_events_to_interactions():
         )
 
 
-    display(events.head())
+    # display(events.head())
 
     skim(events.apply(lambda x: x.astype("category") if x.dtype == "object" else x))
 
@@ -47,30 +42,30 @@ def raw_events_to_interactions():
 
     users = get_users_data_from_interaction_data(events.copy())
 
-    display(users.head())
+    # display(users.head())
 
 
     temp = users["n_interactive_polls"].value_counts(sort=False).sort_index()
-    print(
-        f"""Users with no interactions, just impressions: {temp[0]} ({(temp[0] / users.shape[0] * 100):.2f}%)"""
-    )
+    # print(
+    #     f"""Users with no interactions, just impressions: {temp[0]} ({(temp[0] / users.shape[0] * 100):.2f}%)"""
+    # )
 
     temp = users["n_polls"].value_counts(sort=False).sort_index()
-    print(f"""Users with just 1 poll: {temp[1]} ({(temp[1] / users.shape[0] * 100):.2f}%)""")
+    # print(f"""Users with just 1 poll: {temp[1]} ({(temp[1] / users.shape[0] * 100):.2f}%)""")
 
 
-    print(
-        f"""Users with no useful location data: {users["has_no_useful_location_data"] .sum()} ({(users["has_no_useful_location_data"] .sum() / users.shape[0] * 100):.2f}%)"""
-    )
+    # print(
+    #     f"""Users with no useful location data: {users["has_no_useful_location_data"] .sum()} ({(users["has_no_useful_location_data"] .sum() / users.shape[0] * 100):.2f}%)"""
+    # )
 
 
-    print(
-        f"""Users with no useful identity data: {users["has_no_useful_identity_data"].sum()} ({(users["has_no_useful_identity_data"].sum() / users.shape[0] * 100):.2f}%)"""
-    )
+    # print(
+    #     f"""Users with no useful identity data: {users["has_no_useful_identity_data"].sum()} ({(users["has_no_useful_identity_data"].sum() / users.shape[0] * 100):.2f}%)"""
+    # )
 
-    print(
-        f"""Users with no useful user data: {users["has_no_useful_user_data"].sum()} ({(users["has_no_useful_user_data"].sum() / users.shape[0] * 100):.2f}%)"""
-    )
+    # print(
+    #     f"""Users with no useful user data: {users["has_no_useful_user_data"].sum()} ({(users["has_no_useful_user_data"].sum() / users.shape[0] * 100):.2f}%)"""
+    # )
 
     skim(users.apply(lambda x: x.astype("category") if x.dtype == "object" else x))
 
@@ -81,7 +76,7 @@ def raw_events_to_interactions():
             counts.loc[counts["proportion_cumulative"] > 0.9, "proportion_cumulative"].idxmin()
         ) + 1
         index = max(index, 5)
-        print(f"\n{counts.iloc[0:index, 0:2]}")
+        # print(f"\n{counts.iloc[0:index, 0:2]}")
 
     for col in [
         "age",
@@ -124,7 +119,7 @@ def raw_events_to_interactions():
 
     bins = [0, 16, 18, 22, 25, 30, 40]
     labels = [f"({bins[i]}-{bins[i+1]}]" for i in range(len(bins) - 1)]
-    print(labels)
+    # print(labels)
     users["age_binned"] = pd.cut(
         users["age"], bins=bins, labels=labels, right=True, include_lowest=False
     ).astype("object")
@@ -153,28 +148,28 @@ def raw_events_to_interactions():
 
     polls = get_polls_data_from_interaction_data(events.copy())
 
-    display(polls.head())
+    # display(polls.head())
 
-    skim(polls.apply(lambda x: x.astype("category") if x.dtype == "object" else x))
+    polls.apply(lambda x: x.astype("category") if x.dtype == "object" else x)
 
     for col in [
         "n_users",
         "n_interactive_users_proportion",
         "event_score_by_poll_per_interactive_user",
     ]:
-        display(
-            polls[col].describe(
-                percentiles=np.concatenate(
-                    [
-                        np.arange(0.01, 0.06, 0.01),
-                        [0.1],
-                        np.arange(0.25, 0.8, 0.25),
-                        [0.9],
-                        np.arange(0.95, 0.99, 0.01),
-                    ]
-                )
+        
+        polls[col].describe(
+            percentiles=np.concatenate(
+                [
+                    np.arange(0.01, 0.06, 0.01),
+                    [0.1],
+                    np.arange(0.25, 0.8, 0.25),
+                    [0.9],
+                    np.arange(0.95, 0.99, 0.01),
+                ]
             )
         )
+        
 
     events.sort_values(["event_score"], inplace=True)
 
@@ -187,9 +182,9 @@ def raw_events_to_interactions():
     interactions = events[~is_same_user_poll].copy().reset_index(drop=True)
     assert interactions.shape[0] == interactions.groupby(["poll_code", "user_code"]).ngroups
     primary_key = ["user_code", "poll_code"]
-    skim(interactions.apply(lambda x: x.astype("category") if x.dtype == "object" else x))
+    interactions.apply(lambda x: x.astype("category") if x.dtype == "object" else x)
 
-    pd.to_pickle(interactions, os.path.join(data_path, "interactions.pkl"))
-    pd.to_pickle(users, os.path.join(data_path, "users.pkl"))
-    pd.to_pickle(polls, os.path.join(data_path, "polls.pkl"))
+    # pd.to_pickle(interactions, os.path.join(data_path, "interactions.pkl"))
+    # pd.to_pickle(users, os.path.join(data_path, "users.pkl"))
+    # pd.to_pickle(polls, os.path.join(data_path, "polls.pkl"))
     return interactions, users, polls
