@@ -10,7 +10,7 @@ pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
 def clean_events():
-    data_path = os.path.join("prefect-dags", "data", "raw")
+    data_path = os.path.join("data", "raw")
     file_name = "events.pkl"
     file_path = os.path.join(data_path, file_name)
     events_raw: pd.DataFrame = None  
