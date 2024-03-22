@@ -3,6 +3,18 @@ from events_clean import clean_events
 from raw_events_to_interactions import raw_events_to_interactions_1
 from prepare_for_model import model_prep
 from model_experiments import model_exp
+import os
+import yaml
+
+# Load environment-specific configurations
+environment = os.environ.get("ENVIRONMENT", "local")  # Default to local environment if not specified
+
+with open(f"configs/{environment}.yaml", "r") as file:
+    config = yaml.safe_load(file)
+
+# Access environment-specific settings
+database_uri = config["environment"]["database_uri"]
+logging_level = config["environment"]["logging_level"]
 
 @task
 def events_cleaner():

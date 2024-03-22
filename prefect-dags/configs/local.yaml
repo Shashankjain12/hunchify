@@ -1,0 +1,4 @@
+environment:
+  name: local
+  database_uri: sqlite:///local.db
+  logging_level: DEBUG

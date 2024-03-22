@@ -1,0 +1,4 @@
+environment:
+  name: prod
+  database_uri: postgresql://user:password@prod-db-host/prod_database
+  logging_level: ERROR

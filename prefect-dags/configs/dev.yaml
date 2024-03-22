@@ -1,0 +1,4 @@
+environment:
+  name: dev
+  database_uri: postgresql://user:password@dev-db-host/dev_database
+  logging_level: INFO
