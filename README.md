@@ -20,3 +20,6 @@ Python Ver 3.10.0
 
 # Display and Respective loggers
 ![alt text](images/image-logs.png)
+
+# Recommendations API Architecure
+![alt text](images/image-recommendations.png)
