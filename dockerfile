@@ -20,4 +20,4 @@ CMD prefect server start &
 CMD prefect worker start --pool my-managed-pool &
 
 # Run the Python script create_deployment.py
-CMD python prefect_dags/create_deployment.py
+CMD python prefect-dags/create_deployment.py
