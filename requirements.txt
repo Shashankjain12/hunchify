@@ -6,7 +6,7 @@ numpy
 pandarallel
 plotly
 fuzzywuzzy
-pickle
+# pickle
 prefect==2.16.2
 seaborn
 surprise
