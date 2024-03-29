@@ -13,11 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose port 4200
 EXPOSE 4200
 
-# Define the command to start the Prefect server
-CMD prefect server start &
+# Make the script executable
+RUN chmod +x /app/startup.sh
 
-# Start the Prefect worker with a managed pool named 'my-managed-pool'
-CMD prefect worker start --pool my-managed-pool &
-
-# Run the Python script create_deployment.py
-CMD python prefect-dags/create_deployment.py
+# Define the command to execute the startup script
+CMD ["/app/startup.sh"]
